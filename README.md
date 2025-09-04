@@ -1,70 +1,241 @@
-# React + TypeScript + Vite
+# 📝 Blog Pessoal - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um blog pessoal moderno e responsivo desenvolvido com React, consumindo uma API REST própria para gerenciamento de postagens, temas e usuários.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** 18+ com TypeScript
+- **Vite** - Build tool e dev server
+- **Tailwind CSS** - Framework CSS utilitário
+- **React Router Dom** - Roteamento SPA
+- **Axios** - Cliente HTTP para consumo da API
+- **Context API** - Gerenciamento de estado global
+- **React Hooks** - useState, useEffect, useContext
+- **Vercel** - Deploy e hospedagem
 
-## Expanding the ESLint configuration
+## ✨ Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔐 Autenticação
+- Sistema de login e cadastro de usuários
+- Autenticação via JWT Token
+- Context API para gerenciamento de estado de autenticação
+- Rotas protegidas
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📝 Gestão de Conteúdo
+- **Postagens**
+  - Listar todas as postagens
+  - Visualizar postagem individual
+  - Criar nova postagem
+  - Editar postagem existente
+  - Deletar postagem
+  
+- **Temas**
+  - Gerenciar temas/categorias
+  - Associar postagens a temas
+  - CRUD completo de temas
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 🎨 Interface e UX
+- Componentes reutilizáveis
+- Interface intuitiva com Tailwind CSS
+- Navegação fluida com React Router
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Instalação e Configuração
+
+### Pré-requisitos
+- Node.js 16+ 
+- npm ou yarn
+- Backend do Blog Pessoal rodando
+
+### Passos para instalação
+
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/seu-usuario/blog-pessoal-frontend.git
+   cd blog-pessoal-frontend
+   ```
+
+2. **Instale as dependências**
+   ```bash
+   yarn install
+   ```
+
+3. **Configure as variáveis de ambiente**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Configure a URL da API no arquivo `.env`:
+   ```env
+   VITE_API_URL=http://localhost:4000
+   ```
+   
+
+4. **Inicie o servidor de desenvolvimento**
+   ```bash
+   yarn dev
+   ```
+
+5. **Acesse a aplicação**
+   
+   Abra seu navegador em `http://localhost:5173`
+
+## 📁 Estrutura do Projeto
+
+```
+blog-pessoal-frontend/
+├── public/
+│   ├── vite.svg
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── navbar/
+│   │   │   └── Navbar.tsx
+│   │   ├── footer/
+│   │   │   └── Footer.tsx
+│   │   ├── postagens/
+│   │   │   ├── cardpostagem/
+│   │   │   ├── listapostagens/
+│   │   │   ├── formulariopostagem/
+│   │   │   └── deletarpostagem/
+│   │   └── temas/
+│   │       ├── cardtema/
+│   │       ├── listatemas/
+│   │       ├── formulariotema/
+│   │       └── deletartema/
+│   ├── pages/
+│   │   ├── home/
+│   │   ├── login/
+│   │   ├── cadastro/
+│   │   └── perfil/
+│   ├── contexts/
+│   │   └── AuthContext.tsx
+│   ├── models/
+│   │   ├── Usuario.ts
+│   │   ├── Postagem.ts
+│   │   ├── Tema.ts
+│   │   └── UsuarioLogin.ts
+│   ├── services/
+│   │   └── Service.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── tailwind.config.js
+├── vite.config.ts
+├── package.json
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎯 Principais Componentes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Context API - AuthContext
+Gerencia o estado global de autenticação:
+- Estado do usuário logado
+- Token JWT
+- Funções de login/logout
+- Proteção de rotas
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Services - Axios
+Centraliza todas as chamadas para a API:
+- Interceptadores para token JWT
+- Métodos para todas as operações CRUD
+- Tratamento de erros HTTP
+
+### Models/Interfaces
+Tipagem TypeScript para:
+- Usuario
+- Postagem  
+- Tema
+- UsuarioLogin
+
+## 🔧 Scripts Disponíveis
+
+```bash
+# Desenvolvimento
+yarn dev          # Inicia servidor de desenvolvimento
+
 ```
-# blogpessoal_react
+
+
+
+## 🔐 Autenticação e Segurança
+
+- **JWT Token**: Armazenado no LocalStorage
+- **Context API**: Gerenciamento global do estado de auth
+- **Rotas Protegidas**: Redirecionamento automático para login
+- **Interceptadores Axios**: Inclusão automática do token nas requisições
+- **Logout Automático**: Em caso de token expirado
+
+## 🌐 Deploy
+
+### Vercel (Recomendado)
+
+1. **Conecte seu repositório ao Vercel**
+2. **Configure as variáveis de ambiente:**
+   ```env
+   VITE_API_URL=https://sua-api-backend.render.com
+   ```
+3. **Deploy automático** a cada push na branch main
+
+### Build Manual
+```bash
+npm run build
+# Os arquivos estarão em /dist
+```
+
+## 🔗 Integração com Backend
+
+Este frontend consome uma API REST desenvolvida em NestJS que oferece:
+- Autenticação JWT
+- CRUD de usuários
+- CRUD de postagens
+- CRUD de temas
+- Relacionamentos entre entidades
+
+**Repositório do Backend**: [blog-pessoal-backend](https://github.com/Matheus97px/blogpessoal)
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add: nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📋 Roadmap
+
+- [ ] Implementar sistema de comentários
+- [ ] Adicionar busca por postagens
+- [ ] Sistema de curtidas
+- [ ] Upload de imagens
+- [ ] Modo escuro/claro
+- [ ] Paginação de postagens
+- [ ] Sistema de notificações
+- [ ] PWA (Progressive Web App)
+
+## 📄 Licença e Créditos
+
+Este projeto foi desenvolvido durante o bootcamp **Full Stack Java** da **Generation Brasil**.
+
+- 🎓 **Bootcamp**: Generation Brasil
+- 👨‍💻 **Desenvolvido por**:  Matheus Pereira Xavier 
+- 📚 **Para fins**: Educacionais e portfólio
+- 📄 **Licença**: MIT License
+
+O código está disponível sob a [Licença MIT](LICENSE) para estudo e referência.
+
+**Generation Brasil** - Transformando vidas através da tecnologia! 🚀
+
+## 👤 Autor
+
+**Seu Nome**
+- GitHub: [@Matheus97px](https://github.com/Matheus97px)
+- LinkedIn: [Matheuspx97](https://www.linkedin.com/in/matheuspx97/)
+- Email: matheus97p.q@gmail.com
+- Portfolio: [meu portifolio](https://matheus97px.github.io/portifolio/)
+
+
+---
+
+⭐ **Se este projeto te ajudou, considere dar uma estrela no repositório!**
+
+**Desenvolvido com ❤️ e React**
