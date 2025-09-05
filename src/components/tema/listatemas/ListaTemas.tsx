@@ -5,6 +5,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { buscar } from "../../../services/Service";
 import { SyncLoader } from "react-spinners";
 import type Tema from "../../../models/Tema";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaTemas() {
 
@@ -19,7 +20,7 @@ function ListaTemas() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Voce precisa estar logado!');
+            ToastAlerta('Sua sessão expirou, por favor, logue novamente!', 'info');
             navigate('/');
         }
     }, [token]);

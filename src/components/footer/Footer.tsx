@@ -1,11 +1,19 @@
-import { GithubLogoIcon, LinkedinLogoIcon, TwitchLogoIcon, WhatsappLogoIcon, XLogoIcon } from '@phosphor-icons/react'
+import { GithubLogoIcon, LinkedinLogoIcon } from '@phosphor-icons/react'
+import { useContext, type ReactNode } from 'react'
+import { AuthContext } from '../../contexts/AuthContext'
 
 function Footer() {
 
     let data = new Date().getFullYear()
 
-    return (
-        <>
+    const {usuario} = useContext(AuthContext);
+
+    let component: ReactNode;
+
+    if (usuario.token !== '') {
+
+        component = (
+
             <footer className="flex justify-center bg-indigo-900 text-white">
                 <div className="container flex flex-col items-center py-4">
                     <p className='text-xl font-bold'>
@@ -13,14 +21,18 @@ function Footer() {
                     </p>
                     <p className='text-lg'>Acesse nossas redes sociais</p>
                     <div className='flex gap-2'>
-                        <LinkedinLogoIcon size={48} weight='bold' />
-                        <GithubLogoIcon size={48} weight='bold' />
-                        <TwitchLogoIcon size={48} weight='bold' />
-                        <XLogoIcon size={48} weight='bold' />
-                        <WhatsappLogoIcon size={48} weight='bold' />
+                        <a href="https://github.com/Matheus97px" target="_blank" rel="noreferrer"><GithubLogoIcon size={32} weight='bold'/></a>
+                        <a href="https://www.linkedin.com/in/matheuspx97/" target="_blank" rel="noreferrer"><LinkedinLogoIcon size={32} weight='bold'/></a>
                     </div>
                 </div>
             </footer>
+            
+        )
+    }
+
+    return (
+        <>
+            {component}
         </>
     )
 }
