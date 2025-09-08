@@ -23,7 +23,9 @@ function App() {
         <ToastContainer />
         <BrowserRouter>
           <Navbar />
-          <div className="min-h-[80vh]">
+          <div className="min-h-[80vh] bg-gradient-to-b from-sky-400 to-white">
+           
+            
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
@@ -38,6 +40,7 @@ function App() {
               <Route path="/deletarpostagem/:id" element={<DeletarPostagem />} />
               <Route path="/perfil" element={<Perfil />} />
             </Routes>
+           
           </div>
           <Footer />
         </BrowserRouter>

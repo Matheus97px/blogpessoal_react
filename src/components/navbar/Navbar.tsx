@@ -19,15 +19,33 @@ function Navbar() {
 
     if (usuario.token !== '') {
         component = (
-            <nav className="w-full flex justify-center py-4 bg-indigo-900 text-white">
+            <nav className="w-full flex justify-center py-4">
                 <div className="container flex justify-between text-lg mx-8">
-                    <Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
+                    <Link to='/home' className="text-2xl font-bold relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Blog Pessoal</Link>
                     <div className="flex gap-4">
-                        <Link to="/postagens" className="hover:underline">Postagens</Link>
-                        <Link to="/temas" className="hover:underline">Temas</Link>
-                        <Link to="/cadastrarTema" className="hover:underline">Cadastrar tema</Link>
-                        <Link to="/perfil" className="hover:underline">Perfil</Link>
-                        <Link to="/" onClick={logout} className="hover:underline">Logout</Link>
+                        <Link to="/postagens" className="relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-1 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Postagens</Link>
+                        <Link to="/temas" className="relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-1 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Temas</Link>
+                        <Link to="/cadastrarTema" className="relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-1 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Cadastrar tema</Link>
+                        <Link to="/perfil" className="relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-1 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Perfil</Link>
+                        <Link to="/" onClick={logout} className="relative after:content-[''] 
+                    after:absolute after:left-1/2 after:bottom-1 after:w-0 after:h-[2px]
+                     after:bg-[#999999]  after:transition-all after:duration-300 
+                     hover:after:w-full hover:after:left-0">Logout</Link>
                     </div>
                 </div>
             </nav>
