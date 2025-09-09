@@ -103,7 +103,15 @@ function DeletarPostagem() {
                     { isLoading ? <ClipLoader color="#fff" size={24} /> : <span>Sim</span> }
                     </button>
             </div>
+
+
+
+
+            
         </div>
+        
+        
+        
     </div>
   )
 }

@@ -10,7 +10,7 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 function FormPostagem() {
 
     const navigate = useNavigate()
-    
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [temas, setTemas] = useState<Tema[]>([]);
@@ -24,41 +24,41 @@ function FormPostagem() {
 
     const { id } = useParams<{ id: string }>();
 
-  async function buscarPostagemPorId(id: string) {
-    try {
-        await buscar(`/postagens/${id}`, setPostagens, {
-            headers: { Authorization: token }
-        })
-    } catch (error: any) {
-        if (error.toString().includes('401')) {
-            handleLogout();
+    async function buscarPostagemPorId(id: string) {
+        try {
+            await buscar(`/postagens/${id}`, setPostagens, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout();
+            }
         }
     }
-  }
 
-  async function burcarTemaPorId(id: string) {
-    try {
-        await buscar(`/temas/${id}`, setTema, {
-            headers: { Authorization: token }
-        })
-    } catch (error: any) {
-        if (error.toString().includes('401')) {
-            handleLogout();
+    async function burcarTemaPorId(id: string) {
+        try {
+            await buscar(`/temas/${id}`, setTema, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout();
+            }
         }
     }
-  }
 
-  async function buscarTemas() {
-    try {
-        await buscar('/temas', setTemas, {
-            headers: { Authorization: token }
-        })
-    } catch (error: any) {
-        if (error.toString().includes('401')) {
-            handleLogout();
+    async function buscarTemas() {
+        try {
+            await buscar('/temas', setTemas, {
+                headers: { Authorization: token }
+            })
+        } catch (error: any) {
+            if (error.toString().includes('401')) {
+                handleLogout();
+            }
         }
     }
-  }
 
     useEffect(() => {
         if (token === '') {
@@ -82,115 +82,125 @@ function FormPostagem() {
     }, [tema]);
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-       setPostagens({
-           ...postagem,
-           [e.target.name]: e.target.value,
-           tema: tema,
-           usuario: usuario
-       })
+        setPostagens({
+            ...postagem,
+            [e.target.name]: e.target.value,
+            tema: tema,
+            usuario: usuario
+        })
     }
 
     function retornar() {
         navigate('/postagens');
     }
 
-  async function gerarNovaPostagem(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsLoading(true);
+    async function gerarNovaPostagem(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setIsLoading(true);
 
-    if (id !== undefined) {
-        try {
-            await atualizar(`/postagens`, postagem, setPostagens, {
-                headers: { Authorization: token },
-            });
-            ToastAlerta('Postagem atualizada com sucesso!', 'success');
-        } catch (error: any) {
-            if (error.toString().includes('401')) {
-                handleLogout();
-            } else {
-                ToastAlerta('Erro ao atualizar postagem!', 'error');
+        if (id !== undefined) {
+            try {
+                await atualizar(`/postagens`, postagem, setPostagens, {
+                    headers: { Authorization: token },
+                });
+                ToastAlerta('Postagem atualizada com sucesso!', 'success');
+            } catch (error: any) {
+                if (error.toString().includes('401')) {
+                    handleLogout();
+                } else {
+                    ToastAlerta('Erro ao atualizar postagem!', 'error');
+                }
+            }
+        } else {
+            try {
+                await cadastrar('/postagens', postagem, setPostagens, {
+                    headers: { Authorization: token },
+                });
+                ToastAlerta('Postagem cadastrada com sucesso!', 'success');
+            } catch (error: any) {
+                if (error.toString().includes('401')) {
+                    handleLogout();
+                } else {
+                    ToastAlerta('Erro ao cadastrar postagem!', 'error');
+                }
             }
         }
-    } else {
-        try {
-            await cadastrar('/postagens', postagem, setPostagens, {
-                headers: { Authorization: token },
-            });
-           ToastAlerta('Postagem cadastrada com sucesso!', 'success');
-        } catch (error: any) {
-            if (error.toString().includes('401')) {
-                handleLogout();
-            } else {
-                ToastAlerta('Erro ao cadastrar postagem!', 'error');
-            }
-        }
+
+        setIsLoading(false);
+        retornar();
     }
+    const carregadoTema = tema.descricao === ''
+    return (
+        <section className="pt-10 ">
+            <div className="container flex flex-col mx-auto items-center bg-white/80 rounded-2xl
+            pb-10">
+                <h1 className="text-4xl text-center my-8">
+                    {id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}
+                </h1>
 
-    setIsLoading(false);
-    retornar();
-  }
-  const carregadoTema = tema.descricao === ''
-  return (
-    <div className="container flex flex-col mx-auto items-center">
-        <h1 className="text-4xl text-center my-8">
-            {id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}
-            </h1>
+                <form className="flex flex-col w-1/2 gap-4"
+                    onSubmit={gerarNovaPostagem}>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="titulo">Titulo da Postagem</label>
+                        <input
+                            type="text"
+                            placeholder="Titulo"
+                            name="titulo"
+                            required
+                            className="border-2 border-slate-700 rounded p-2"
+                            value={postagem.titulo}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                        />
 
-        <form className="flex flex-col w-1/2 gap-4"
-        onSubmit={gerarNovaPostagem}>
-        <div className="flex flex-col gap-2">
-            <label htmlFor="titulo">Titulo da Postagem</label>
-            <input 
-            type="text"
-            placeholder="Titulo"
-            name="titulo"
-            required
-            className="border-2 border-slate-700 rounded p-2"
-            value={postagem.titulo}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-             />
-            
-        </div>
-        <div className="flex flex-col gap-2">
-            <label htmlFor="texto">Texto da Postagem"</label>
-            <input 
-            type="text"
-            placeholder="Texto"
-            name="texto"
-            required
-            className="border-2 border-slate-700 rounded p-2" 
-            value={postagem.texto}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-        </div>
-        <div className="flex flex-col gap-2">
-            <p>Tema da Postagem</p>
-            <select name="tema" id="tema" className="border p-2 border-slate-800 rounded"
-            onChange={(e) => burcarTemaPorId(e.currentTarget.value)}>
-                <option value="" selected disabled>Selecione um Tema</option>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="texto">Texto da Postagem"</label>
+                        <input
+                            type="text"
+                            placeholder="Texto"
+                            name="texto"
+                            required
+                            className="border-2 border-slate-700 rounded p-2"
+                            value={postagem.texto}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p>Tema da Postagem</p>
+                        <select name="tema" id="tema" className="border p-2 border-slate-800 rounded"
+                            onChange={(e) => burcarTemaPorId(e.currentTarget.value)}>
+                            <option value="" selected disabled>Selecione um Tema</option>
 
-                {temas.map((tema) => (
-                    <>
-                    <option value={tema.id}>{tema.descricao}</option>
-                    </>
-                ))}
-            </select>
-        </div>
+                            {temas.map((tema) => (
+                                <>
+                                    <option value={tema.id}>{tema.descricao}</option>
+                                </>
+                            ))}
+                        </select>
+                    </div>
+                    
+                    <button
+                        type="submit"
+                        className={`relative overflow-hidden px-6 py-3 font-semibold bg-white
+                             group border-2 border-black rounded-md cursor-not-allowed
+                            disabled:bg-slate-200 disabled:text-slate-400  ${carregadoTema ?
+                                 '' : 'transition-colors duration-500  cursor-pointer'} `}
+                        disabled={carregadoTema}
+                    >
+                        <span className={` absolute inset-0 rounded-3xl bg-black scale-0
+                         ${carregadoTema ? '' : 'group-hover:scale-150 transition-transform duration-500'} `}
+                        ></span>
+                        <span className={`relative z-10 text-black ${carregadoTema ? '' : 'group-hover:text-white transition-colors duration-500'}`}
+                        >
+                            {isLoading ? <ClipLoader color="#fff" size={24} /> : <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>}
+                        </span>
+                    </button>
 
-        <button
-        type="submit"
-        className="rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
-        text-white font-bold w-1/2 mx-auto py-2 flex justify-center"
-        disabled={carregadoTema}>
-           {
-            isLoading ? <ClipLoader color="#fff" size={24}/> : <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
-           }
-            </button>
-        
-        </form>
+                </form>
 
-    </div>
-  )
+            </div>
+        </section>
+    )
 }
 
 export default FormPostagem

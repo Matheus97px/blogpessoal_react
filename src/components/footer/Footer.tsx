@@ -37,7 +37,7 @@ function Footer() {
                             </a>
                         </div>
 
-                    </div>s
+                    </div>
                 </div>
             </footer>
 

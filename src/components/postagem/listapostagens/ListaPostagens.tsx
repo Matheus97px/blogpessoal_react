@@ -48,12 +48,12 @@ function ListaPostagens() {
     return (
         <>
             {isLoading && (
-                <div className="flex justify-center w-full my-8">
+                <div className="flex justify-center w-full ">
                     <SyncLoader color="#312e81" size={32} />
                 </div>
             )}
 
-            <div className="flex justify-center w-full my-4">
+            <div className="flex justify-center w-full ">
                 <div className="container flex flex-col">
                     {(!isLoading && postagens.length === 0) && (
                         <span className="text-3xl text-center my-8">

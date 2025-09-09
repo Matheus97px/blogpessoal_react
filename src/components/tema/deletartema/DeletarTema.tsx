@@ -72,30 +72,51 @@ function DeletarTema() {
   }
 
   return (
-    <div className="container w-1/3 mx-auto">
-      <h1 className="text-4xl text-center my-4">Deletar Tema</h1>
-      <p className="text-center font-semibold mb-4">
-        Tem certeza que deseja deletar esse tema?</p>
-      <div className="border flex flex-col rounded-2xl overflow-hidden justify-between">
-        <header className="py-2 px-6 bg-indigo-600 text-white font-bold text-2xl">
-          Tema
-        </header>
-        <p className='p-8 text-3xl bg-slate-200 h-full'>{tema.descricao}</p>
-        <div className="flex">
-          <button
-            className="text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2"
-            onClick={retornar}>
-            Não
-          </button>
-          <button
-            className="w-full text-slate-100 bg-indigo-400
-              hover:bg-indigo-600 flex items-center justify-center"
-            onClick={deletarTema}>
-            {isLoading ? <ClipLoader color="#fff" size={24} /> : <span>Sim</span>}
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      <section className="container w-1/3 mx-auto">
+        <h1 className="text-4xl text-center my-4">Deletar Tema</h1>
+        <p className="text-center font-semibold mb-4">
+          Tem certeza que deseja deletar esse tema?</p>
+
+        <article className="bg-white/60 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-xl">
+          <div className="p-4 ">
+            <div className="mb-4 ">
+              <h3 className="font-bold text-gray-800">Tema</h3>
+            </div>
+            <h4 className="text-xl font-bold text-gray-900 mb-3">{tema.descricao}</h4>
+            <div className="flex items-center justify-between ">
+              <div></div>
+              <div className="flex items-center gap-2">
+
+                <button className="w-full flex items-center justify-center py-2 relative overflow-hidden text-indigo-500 border-2 border-indigo-500 group cursor-pointer p-2 rounded-2xl"
+                onClick={deletarTema}>
+                 
+                  <span className="absolute inset-0 bg-indigo-500 -translate-x-full 
+                group-hover:translate-x-0 transition-transform duration-500 ease-in-out "></span>
+                  <span className="relative z-10 group-hover:text-white transition-colors
+                 duration-500">Sim</span>
+                </button>
+
+
+
+                <button className="w-full flex items-center justify-center relative overflow-hidden
+                text-red-500 border-2 border-red-500 group cursor-pointer p-2 rounded-2xl"
+                  
+                     onClick={retornar}>
+                  <span className="absolute inset-0 bg-red-500 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                  <span className="relative z-10 group-hover:text-white transition-colors duration-500"> {isLoading ? <ClipLoader color="#fff" size={24} /> : <span>Não</span>}</span>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+      </section>
+
+
+    </>
   )
 }
 
